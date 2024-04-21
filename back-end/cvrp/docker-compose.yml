@@ -1,0 +1,12 @@
+version: "3"
+services:
+  cvrp_service:
+    image: "hieuvd2000/cvrp:0.1"
+    restart: "always"
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./:/app"
+    
+    command: >
+      bash -c "python app.py"

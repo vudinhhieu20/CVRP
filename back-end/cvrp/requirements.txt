@@ -1,0 +1,10 @@
+fastapi[all]
+uvicorn[standard]
+pathlib
+loguru
+python-multipart
+pandas
+openpyxl
+scipy
+scikit-learn
+numpy

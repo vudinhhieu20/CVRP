@@ -1,0 +1,9 @@
+2024-04-09 09:30:46,763 - custom - INFO: Loading application ... 
+2024-04-09 09:30:47,252 - custom - INFO: Loading application ... 
+2024-04-09 09:30:47,273 - custom - INFO: Loading application ... 
+2024-04-09 09:31:03,336 - custom - INFO: REQUEST  014dff95-b592-4752-8b1b-e65a7a64c231: POST - http://127.0.0.1:8000/cvrp/upload_file
+2024-04-09 09:31:03,337 - custom - INFO: RESPONSE 014dff95-b592-4752-8b1b-e65a7a64c231: 307
+2024-04-09 09:31:03,339 - custom - INFO: REQUEST  c1db6f80-41e6-48ef-83c1-e0858bb1c480: POST - http://127.0.0.1:8000/cvrp/upload_file/
+2024-04-09 09:31:03,384 - custom - INFO: Start handle upload file
+2024-04-09 09:31:03,384 - custom - INFO: Saving path: ./uploads/Vũ Đình Hiếu.pdf
+2024-04-09 09:31:03,385 - custom - INFO: RESPONSE c1db6f80-41e6-48ef-83c1-e0858bb1c480: 200
