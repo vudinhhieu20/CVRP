@@ -1,0 +1,7 @@
+version: "3"
+services:
+  cvrp_web:
+    image: "hieuvd2000/cvrp_demo_front_end:0.1"
+    restart: "always"
+    ports:
+      - "3000:3000"

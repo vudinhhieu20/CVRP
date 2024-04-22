@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import traceback
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Annotated, Optional
@@ -52,7 +53,7 @@ class CVRPRoutes(BaseModel):
 
 class CVRPResponse(BaseModel):
     bus_stop_coord: Optional[list[list[float]]] = None
-    bus_stop_assign: Optional[list[int]] = None
+    bus_stop_assign: Optional[list[list[str]]] = None
     routes: Optional[CVRPRoutes] = None
 
 
@@ -88,7 +89,7 @@ async def upload_file_for_cvrp(
             max_student_per_node=int(max_student),
             bus_capacity=int(max_capacity),
         )
-        cluster_centroids, cluster_labels, routes = cvrpSolver.solve()
+        cluster_centroids, cluster_assign_labels, routes = cvrpSolver.solve()
 
         # save_to = UPLOAD_DIR + file_upload.filename
         # print("Saving path: " + save_to)
@@ -101,11 +102,12 @@ async def upload_file_for_cvrp(
         )
         response = CVRPResponse(
             bus_stop_coord=cluster_centroids,
-            bus_stop_assign=cluster_labels,
+            bus_stop_assign=cluster_assign_labels,
             routes=routesResponse,
         )
 
     except Exception as e:
         print(e)
+        traceback.print_exc()
 
     return response

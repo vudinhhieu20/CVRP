@@ -1,5 +1,6 @@
 import collections
 import math
+import traceback
 from io import BytesIO
 
 import numpy as np
@@ -27,14 +28,15 @@ class CVRP:
             self.dataset_df = pd.read_excel(BytesIO(self.raw_bytes_dataset))
             # print(self.dataset_df.head())
             # print(self.dataset_df)
-            cluster_centroids, cluster_labels = self.cluster()
+            cluster_centroids, cluster_assign_labels = self.cluster()
             routes = self.schedule_route()
         except Exception as e:
             print(e)
+            traceback.print_exc()
 
         finally:
             print("Solve CVRP done!")
-            return cluster_centroids, cluster_labels, routes
+            return cluster_centroids, cluster_assign_labels, routes
 
     def cluster(self):
         try:
@@ -104,13 +106,21 @@ class CVRP:
                 "Cluster frequencies each labels: ",
                 self.cluster_frequencies_each_labels,
             )
+
+            tmp_df = self.dataset_df.copy()
+            tmp_df["cluster_labels"] = self.cluster_labels
+            tmp_df["id"] = tmp_df["id"].astype("string")
+            tmp_df["cluster_labels"] = tmp_df["cluster_labels"].astype("string")
+            assign_labels = tmp_df[["id", "cluster_labels"]].values.tolist()
+
         except Exception as e:
             print(e)
+            traceback.print_exc()
 
         finally:
             print("End clustering!")
             print("####################################")
-            return last_centroid, last_labels
+            return last_centroid, assign_labels
 
     def schedule_route(self):
         try:
@@ -136,6 +146,7 @@ class CVRP:
             self.routes = routes
         except Exception as e:
             print(e)
+            traceback.print_exc()
 
         finally:
             return routes
@@ -232,6 +243,7 @@ class CVRP:
 
         except Exception as e:
             print(e)
+            traceback.print_exc()
 
         finally:
             print("End greedy algorithm ...")
@@ -283,6 +295,8 @@ class SavingAlgoSolver:
                         savings[key] = saving_distance
         except Exception as e:
             print(e)
+            traceback.print_exc()
+
         finally:
             return savings
 
@@ -523,6 +537,7 @@ class SavingAlgoSolver:
 
         except Exception as e:
             print(e)
+            traceback.print_exc()
 
         finally:
             print("####################################")
