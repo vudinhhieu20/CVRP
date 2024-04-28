@@ -97,6 +97,11 @@ async def upload_file_for_cvrp(
         # with open(save_to, "wb") as f:
         #     f.write(data)
 
+        cluster_centroids = cluster_centroids.tolist()
+
+        print("cluster_centroids: ", cluster_centroids)
+        print("cluster_assign: ", cluster_assign_labels)
+        print("routes: ", routes)
         routesResponse = CVRPRoutes(
             routes_greedy=routes["routes_greedy"], routes_saving=routes["routes_saving"]
         )

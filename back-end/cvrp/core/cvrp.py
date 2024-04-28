@@ -136,7 +136,28 @@ class CVRP:
                 nodes[i] = {"node": i, "coord": coord, "demand": demand}
 
             routes_greedy = self.greedy_algo(nodes)
+
+            # add 1 for all node in routes becase node start from 1 but route get first node is 0
+            new_route = []
+            new_routes = []
+            for route in routes_greedy:
+                for node in route:
+                    node += 1
+                    new_route.append(node)
+                new_routes.append(new_route)
+                new_route = []
+            routes_greedy = new_routes
+
             routes_saving = self.saving_algo(nodes)
+            new_route = []
+            new_routes = []
+            for route in routes_saving:
+                for node in route:
+                    node += 1
+                    new_route.append(node)
+                new_routes.append(new_route)
+                new_route = []
+            routes_saving = new_routes
 
             routes["routes_greedy"] = routes_greedy
             routes["routes_saving"] = routes_saving
