@@ -1,25 +1,6 @@
-import React, { useState } from "react";
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-  Row,
-  Col,
-  Table,
-} from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Button, Col, Form, InputNumber, Row, Table } from "antd";
 import axios from "axios";
+import React, { useState } from "react";
 
 function FileForm() {
   const [file, setFile] = useState(null);
@@ -66,20 +47,20 @@ function FileForm() {
             busStop: item[1],
           })
         );
-        let routesGreedy = response.data["routes"]["routes_greedy"]
-        let routesSaving = response.data["routes"]["routes_saving"]
+        let routesGreedy = response.data["routes"]["routes_greedy"];
+        let routesSaving = response.data["routes"]["routes_saving"];
 
-        let routesGreedyStr = '['
-        for (let route of routesGreedy){
-          routesGreedyStr +=' [ '+route.join(', ') + '], '
+        let routesGreedyStr = "[";
+        for (let route of routesGreedy) {
+          routesGreedyStr += " [ " + route.join(", ") + "], ";
         }
-        routesGreedyStr += ']'
+        routesGreedyStr += "]";
 
-        let routesSavingStr = '['
-        for (let route of routesSaving){
-          routesSavingStr +=' [ '+route.join(', ') + '], '
+        let routesSavingStr = "[";
+        for (let route of routesSaving) {
+          routesSavingStr += " [ " + route.join(", ") + "], ";
         }
-        routesSavingStr += ']'
+        routesSavingStr += "]";
 
         let customListRoutes = [
           {
@@ -91,7 +72,7 @@ function FileForm() {
             routes: routesSavingStr,
           },
         ];
-        
+
         setListBusStopCoord(customListBusStopCoord);
         setListAssignBusStop(customListAssignBusStop);
         setListRoutesGreedy(response.data["routes"]["routes_greedy"]);
@@ -128,6 +109,7 @@ function FileForm() {
       title: "Điểm bus",
       dataIndex: "busStop",
       key: "busStop",
+      render: (text) => <span>{parseInt(text) + 1}</span>,
     },
   ];
 
@@ -198,7 +180,7 @@ function FileForm() {
             <Table columns={columnsListBusStop} dataSource={listBusStopCoord} />
             ;
           </Col>
-          
+
           <Col className="gutter-row" span={12}>
             <h3>Danh sách phân chia học sinh các điểm bus</h3>
             <Table
